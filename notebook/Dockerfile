@@ -11,4 +11,4 @@ RUN rm -rf /tmp/src/.git* && \
 
 USER 1001
 
-RUN /opt/app-root/builder/scripts/assemble
+RUN /opt/app-root/builder/assemble
