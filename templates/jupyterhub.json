@@ -22,12 +22,12 @@
         },
         {
             "name": "NOTEBOOK_REPOSITORY_URL",
-            "value": "https://github.com/jakevdp/PythonDataScienceHandbook",
+            "value": "https://github.com/tensorflow/tensorflow",
             "required": true
         },
         {
             "name": "NOTEBOOK_REPOSITORY_CONTEXT_DIR",
-            "value": ""
+            "value": "tensorflow/tools/docker/notebooks"
         },
         {
             "name": "NOTEBOOK_PYTHON_VERSION",
@@ -708,6 +708,63 @@
             "kind": "ImageStream",
             "apiVersion": "v1",
             "metadata": {
+                "name": "${APPLICATION_NAME}-nb-gpu",
+                "labels": {
+                    "app": "${APPLICATION_NAME}"
+                }
+            }
+        },
+        {
+            "kind": "BuildConfig",
+            "apiVersion": "v1",
+            "metadata": {
+                "name": "${APPLICATION_NAME}-nb-gpu",
+                "labels": {
+                    "app": "${APPLICATION_NAME}"
+                }
+            },
+            "spec": {
+                "triggers": [
+                    {
+                        "type": "ConfigChange"
+                    },
+                    {
+                        "type": "ImageChange"
+                    }
+                ],
+                "source": {
+                    "type": "Git",
+                    "git": {
+                        "uri": "https://github.com/jupyter-on-openshift/poc-hub-tensorflow-gpu.git"
+                    },
+                    "contextDir": "notebook"
+                },
+                "strategy": {
+                    "type": "Docker",
+                    "dockerStrategy": {
+                        "from": {
+                            "kind": "ImageStreamTag",
+                            "name": "${APPLICATION_NAME}-nb-s2i:latest"
+                        }
+                    }
+                },
+                "output": {
+                    "to": {
+                        "kind": "ImageStreamTag",
+                        "name": "${APPLICATION_NAME}-nb-gpu:latest"
+                    }
+                },
+                "resources": {
+                    "limits": {
+                        "memory": "3Gi"
+                    }
+                }
+            }
+        },
+        {
+            "kind": "ImageStream",
+            "apiVersion": "v1",
+            "metadata": {
                 "name": "${JUPYTERHUB_NAME}-nb-img",
                 "labels": {
                     "app": "${JUPYTERHUB_NAME}"
@@ -744,7 +801,7 @@
                     "sourceStrategy": {
                         "from": {
                             "kind": "ImageStreamTag",
-                            "name": "${JUPYTERHUB_NAME}-nb-s2i:latest"
+                            "name": "${JUPYTERHUB_NAME}-nb-gpu:latest"
                         },
                         "env": [
                             {
