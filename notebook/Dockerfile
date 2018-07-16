@@ -54,7 +54,7 @@ RUN yum install -y \
 
 #### NVIDIA CUDA ####
 
-RUN yum install -y cuda-8-0
+RUN yum install -y dkms cuda-8-0
 
 #### NVIDIA CUDNN ####
 
