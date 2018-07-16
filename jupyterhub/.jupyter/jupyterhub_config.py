@@ -124,3 +124,12 @@ if idle_timeout and int(idle_timeout):
             'command': ['backup-user-details', '--backups=/opt/app-root/notebooks/backups', '--interval=30'],
         }
     ]
+
+# Set Nvidia GPU configuration.
+
+c.Spawner.environment.update(dict(
+       NVIDIA_VISIBLE_DEVICES='all',
+       NVIDIA_DRIVER_CAPABILITIES='compute,utility',
+       NVIDIA_REQUIRE_CUDA='cuda>=8.0'))
+
+c.KubeSpawner.extra_resource_limits = {'nvidia.com/gpu': '1'}

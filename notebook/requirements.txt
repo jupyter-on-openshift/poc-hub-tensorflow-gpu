@@ -26,5 +26,6 @@ xlrd==1.1.*
 
 ### tensorflow-notebook
 
-tensorflow==1.9.*
+setuptools<=39.1.0
+tensorflow-gpu==1.9.*
 keras==2.2.*
