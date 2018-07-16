@@ -708,7 +708,7 @@
             "kind": "ImageStream",
             "apiVersion": "v1",
             "metadata": {
-                "name": "${JUPYTERHUB_NAME}-nb-gpu",
+                "name": "${JUPYTERHUB_NAME}-nb-tfg",
                 "labels": {
                     "app": "${JUPYTERHUB_NAME}"
                 }
@@ -718,7 +718,7 @@
             "kind": "BuildConfig",
             "apiVersion": "v1",
             "metadata": {
-                "name": "${JUPYTERHUB_NAME}-nb-gpu",
+                "name": "${JUPYTERHUB_NAME}-nb-tfg",
                 "labels": {
                     "app": "${JUPYTERHUB_NAME}"
                 }
@@ -751,7 +751,7 @@
                 "output": {
                     "to": {
                         "kind": "ImageStreamTag",
-                        "name": "${JUPYTERHUB_NAME}-nb-gpu:latest"
+                        "name": "${JUPYTERHUB_NAME}-nb-tfg:latest"
                     }
                 },
                 "resources": {
@@ -801,7 +801,7 @@
                     "sourceStrategy": {
                         "from": {
                             "kind": "ImageStreamTag",
-                            "name": "${JUPYTERHUB_NAME}-nb-gpu:latest"
+                            "name": "${JUPYTERHUB_NAME}-nb-tfg:latest"
                         },
                         "env": [
                             {
