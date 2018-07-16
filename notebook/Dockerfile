@@ -2,6 +2,9 @@ FROM myproject/minimal-notebook:latest
 
 USER root
 
+#### Packages ####
+RUN yum clean all && yum repolist && yum install -y epel-release
+
 #### Default PATH ####
 
 ENV CUDA_HOME /usr/local/cuda
@@ -54,7 +57,7 @@ RUN yum install -y \
 
 #### NVIDIA CUDA ####
 
-RUN yum install -y dkms cuda-8-0
+RUN yum install -y cuda-8-0
 
 #### NVIDIA CUDNN ####
 
