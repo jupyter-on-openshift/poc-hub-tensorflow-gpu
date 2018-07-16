@@ -30,11 +30,14 @@ ENV NVIDIA_REQUIRE_CUDA "cuda>=8.0"
 ENV CUDA_VERSION 8.0.61
 LABEL com.nvidia.cuda.version="${CUDA_VERSION}"
 
-RUN echo "/usr/local/nvidia/lib" >> /etc/ld.so.conf.d/nvidia.conf && \
-    echo "/usr/local/nvidia/lib64" >> /etc/ld.so.conf.d/nvidia.conf
-
 ENV PATH /usr/local/nvidia/bin:/usr/local/cuda/bin:${PATH}
+
 ENV LD_LIBRARY_PATH /usr/local/nvidia/lib:/usr/local/nvidia/lib64
+
+RUN echo "/usr/local/nvidia/lib" >> /etc/ld.so.conf.d/nvidia.conf && \
+    echo "/usr/local/nvidia/lib64" >> /etc/ld.so.conf.d/nvidia.conf && \
+    echo "/usr/local/cuda/lib64" >> /etc/ld.so.conf.d/nvidia.conf && \
+    echo "/usr/local/cuda/extras/CUPTI/lib64" >> /etc/ld.so.conf.d/nvidia.conf
 
 RUN NVIDIA_GPGKEY_SUM=d1be581509378368edeec8c1eb2958702feedf3bc3d17011adbf24efacce4ab5 && \
     curl -fsSL https://developer.download.nvidia.com/compute/cuda/repos/rhel7/x86_64/7fa2af80.pub | sed '/^Version/d' > /etc/pki/rpm-gpg/RPM-GPG-KEY-NVIDIA && \
