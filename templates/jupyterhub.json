@@ -728,11 +728,8 @@
                     }
                 ],
                 "source": {
-                    "type": "Git",
-                    "git": {
-                        "uri": "https://github.com/jupyter-on-openshift/poc-hub-tensorflow-gpu.git"
-                    },
-                    "contextDir": "notebook"
+                    "type": "Binary",
+                    "binary": {}
                 },
                 "strategy": {
                     "type": "Docker",
