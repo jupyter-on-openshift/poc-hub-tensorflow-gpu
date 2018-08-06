@@ -719,14 +719,6 @@
                 }
             },
             "spec": {
-                "triggers": [
-                    {
-                        "type": "ConfigChange"
-                    },
-                    {
-                        "type": "ImageChange"
-                    }
-                ],
                 "source": {
                     "type": "Binary",
                     "binary": {}

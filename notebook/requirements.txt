@@ -26,8 +26,5 @@ xlrd==1.1.*
 
 ### tensorflow-notebook
 
-setuptools<=39.1.0
-#tensorflow-gpu==1.4.1
-#keras==2.1.6
-tensorflow-gpu
-keras
+keras==2.2.2
+tensorflow-gpu==1.9.0

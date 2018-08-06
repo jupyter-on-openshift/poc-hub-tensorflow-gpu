@@ -65,29 +65,13 @@ RUN yum install -y cuda-9-0
 
 #### NVIDIA CUDNN ####
 
-#ENV CUDNN_VERSION 6.0.21
-#LABEL com.nvidia.cudnn.version="${CUDNN_VERSION}"
+COPY . /tmp/src
 
-# cuDNN license: https://developer.nvidia.com/cudnn/license_agreement
-
-#RUN CUDNN_DOWNLOAD_SUM=9b09110af48c9a4d7b6344eb4b3e344daa84987ed6177d5c44319732f3bb7f9c && \
-#    curl -fsSL http://developer.download.nvidia.com/compute/redist/cudnn/v6.0/cudnn-8.0-linux-x64-v6.0.tgz -O && \
-#    echo "$CUDNN_DOWNLOAD_SUM  cudnn-8.0-linux-x64-v6.0.tgz" | sha256sum -c - && \
-#    tar --no-same-owner -xzf cudnn-8.0-linux-x64-v6.0.tgz -C /usr/local --wildcards 'cuda/lib64/libcudnn.so.*' && \
-#    rm cudnn-8.0-linux-x64-v6.0.tgz && \
-#    ldconfig
-
-COPY cudnn-9.0-linux-x64-v7.1.tgz /tmp
-
-RUN tar --no-same-owner -xzf /tmp/cudnn-9.0-linux-x64-v7.1.tgz -C /usr/local --wildcards 'cuda/lib64/libcudnn.so.*' && \
-    rm /tmp/cudnn-9.0-linux-x64-v7.1.tgz && \
+RUN tar --no-same-owner -xzf /tmp/src/cudnn-9.0-linux-x64-v7.1.tgz -C /usr/local --wildcards 'cuda/lib64/libcudnn.so.*' && \
+    rm /tmp/src/cudnn-*.tgz && \
     ldconfig
 
-#RUN ldconfig
-
-#### Setup ready for S2I build ####
-
-COPY . /tmp/src
+#### S2I build ####
 
 RUN rm -rf /tmp/src/.git* && \
     chown -R 1001 /tmp/src && \
@@ -95,7 +79,5 @@ RUN rm -rf /tmp/src/.git* && \
     chmod -R g+w /tmp/src
 
 USER 1001
-
-#### Trigger the S2I build ####
 
 RUN /opt/app-root/builder/assemble
